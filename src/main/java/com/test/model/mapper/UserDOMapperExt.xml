@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.model.mapper.UserDOMapperExt">
+<select id="getOne" parameterType="com.test.model.UserDO">
+</select>
+<!-- 	&amp;amp;lt;insert id="insertByBatch" parameterType="List"&amp;amp;gt;
+		insert into user (id,name, gender, birthday,
+		mobilephone, email)
+		values
+		&amp;amp;lt;foreach collection="users" index="index" item="user" separator=","&amp;amp;gt;
+			(#{user.id,jdbcType=VARCHAR},
+			#{user.name,jdbcType=VARCHAR},
+			#{user.gender,jdbcType=INTEGER}, #{user.birthday,jdbcType=TIMESTAMP},
+			#{user.mobilephone,jdbcType=VARCHAR},
+			#{user.email,jdbcType=VARCHAR})
+		&amp;amp;lt;/foreach&amp;amp;gt;
+	&amp;amp;lt;/insert&amp;amp;gt; -->
+
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="BookDO" type="com.test.model.BookDO" />
+	</typeAliases>
+
+	<!-- <plugins> <plugin interceptor="com.mybatis.intercepter.MypluginIntercept"> </plugin> </plugins> -->
+
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<!-- <property name="driver" value="com.mysql.jdbc.Driver" /> -->
+				<!-- <property name="url" value="jdbc:mysql://localhost:3306/library?characterEncoding=utf-8" /> -->
+				<property name="driver" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+				<property name="url" value="jdbc:log4jdbc:mysql://localhost:3306/library?characterEncoding=utf-8" />
+				<property name="username" value="root" />
+				<property name="password" value="root" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/test/mapper/TestMapper.xml" />
+
+		<mapper class="com.test.model.mapper.BookDOMapper" />
+		<mapper class="com.test.model.mapper.BookDOMapperExt" />
+
+		<mapper class="com.test.model.mapper.UserDOMapper" />
+		<mapper class="com.test.model.mapper.UserDOMapperExt" />
+
+	</mappers>
+</configuration>

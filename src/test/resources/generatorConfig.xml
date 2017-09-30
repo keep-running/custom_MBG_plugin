@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- <classPathEntry location="G:/maven_repository/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar" /> -->
+
+	<context id="mysql" targetRuntime="MyBatis3" defaultModelType="flat">
+
+		<property name="isOverwrite" value="true" />
+
+		<!-- 插件配置，包括自定义插件 -->
+		<plugin type="com.mybatis.customplugins.CustomMySQLSqlMapperPlugin"></plugin>
+		<!-- <plugin type="org.mybatis.generator.plugins.ToStringPlugin" /> -->
+		<!-- <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" /> -->
+
+		<commentGenerator>
+			<!-- true：所有注释信息都不生成，false：正常生成注释 -->
+			<property name="suppressAllComments" value="false" />
+			<!-- 自动生成的代码是否加上生成的日期时间，不配置此项，默认是false -->
+			<property name="suppressDate" value="true" />
+			<!-- 数据库表的注释信息是否带过来 -->
+			<property name="addRemarkComments" value="true" />
+			<!-- 生成的时间的格式，默认是java.util.Date 的 toString() 的样式 -->
+			<property name="dateFormat" value="yyyy-MM-dd HH:mm:ss" />
+		</commentGenerator>
+
+		<!-- connectionFactory 与 jdbcConnection 二选一，不能两个都有 -->
+		<connectionFactory>
+			<property name="driverClass" value="com.mysql.jdbc.Driver" />
+			<property name="connectionURL" value="jdbc:mysql://localhost:3306/library" />
+			<property name="userId" value="root" />
+			<property name="password" value="root" />
+		</connectionFactory>
+
+		<!-- <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/library" userId="root" 
+			password="root"> </jdbcConnection> -->
+
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和 NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 生成的领域模型文件包名位置 -->
+		<javaModelGenerator targetPackage="com.test.model" targetProject="src\main\java"><!-- \ -->
+			<!-- for MyBatis3/MyBatis3Simple 自动为每一个生成的类创建一个构造方法，构造方法包含了所有的field；而不是使用setter； -->
+			<property name="constructorBased" value="false" />
+			<property name="enableSubPackages" value="false" />
+			<!-- 设置是否在getter方法中，对String类型字段调用trim()方法 -->
+			<property name="trimStrings" value="true" />
+			<!-- for MyBatis3 / MyBatis3Simple 是否创建一个不可变的类，如果为true， 那么MBG会创建一个没有setter方法的类，取而代之的是类似constructorBased的类 -->
+			<property name="immutable" value="false" />
+			<!-- 设置一个根对象， 如果设置了这个根对象，那么生成的keyClass或者recordClass会继承这个类；在Table的rootClass属性中可以覆盖该选项 注意：如果在key class或者record class中有root 
+				class相同的属性，MBG就不会重新生成这些属性了，包括： 1，属性名相同，类型相同，有相同的getter/setter方法； -->
+			<!-- <property name="rootClass" value="com.test.model.BaseDomain" /> -->
+		</javaModelGenerator>
+
+		<!-- 生成的映射文件包名和位置 -->
+		<sqlMapGenerator targetPackage="com.test.model.mapper" targetProject="src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 生成的DAO接口文件包名和位置 -->
+		<javaClientGenerator type="XMLMAPPER" targetPackage="com.test.model.mapper" targetProject="src\main\java">
+		<!-- <javaClientGenerator type="XMLMAPPER" targetPackage="com.test.model.mapper" targetProject="src\main\java"> -->
+			<property name="enableSubPackages" value="true" />
+			<!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查 -->
+			<property name="rootInterface" value="com.test.model.mapper.BaseMapper" />
+		</javaClientGenerator>
+
+		<!-- 要生成的表的名称 -->
+		<table tableName="book" domainObjectName="BookDO" modelType="hierarchical">
+
+			<!-- 参考 javaModelGenerator 的 rootClass 属性 -->
+			<property name="rootClass" value="com.test.model.BaseDomain" />
+			<!-- 是否使用列名实际的名字，默认为false，会按照驼峰方式生成model中的属性名 -->
+			<property name="useActualColumnNames" value="false" />
+			
+			<generatedKey column="id" sqlStatement="MySql" identity="false" />
+			
+			<!-- <columnOverride column="DATE_FIELD" property="startDate" /> -->
+			<!-- <columnOverride column="id" property="id" javaType="java.lang.String" jdbcType="VARCHAR" /> -->
+			<!-- <columnOverride column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR" /> -->
+			
+			<!-- 要忽略的列，忽略的列不生成model、client、mapper.xml的相关信息 -->
+			<!-- <ignoreColumn column="author" delimitedColumnName="true"/> -->
+		</table>
+		<table tableName="user" domainObjectName="UserDO">
+
+			<!-- 参考 javaModelGenerator 的 rootClass 属性 -->
+			<!-- <property name="rootClass" value="com.test.model.BaseDomain" /> -->
+			<!-- 是否使用列名实际的名字，默认为false，会按照驼峰方式生成model中的属性名 -->
+			<property name="useActualColumnNames" value="false" />
+			
+			<!-- <generatedKey column="id" sqlStatement="MySql" identity="true" /> -->
+			
+			<!-- <columnOverride column="DATE_FIELD" property="startDate" /> -->
+			<!-- <columnOverride column="id" property="id" javaType="java.lang.String" jdbcType="VARCHAR" /> -->
+			<!-- <columnOverride column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR" /> -->
+			
+			<!-- 要忽略的列，忽略的列不生成model、client、mapper.xml的相关信息 -->
+			<!-- <ignoreColumn column="author" delimitedColumnName="true"/> -->
+		</table>
+
+	</context>
+</generatorConfiguration>
