@@ -1,4 +1,6 @@
 
+版本说明：V1.0.0
+
 
 1、生成的代码，默认delete方法为逻辑删除，即用update XX 的is_deleted = 'y'；
 —— ok
